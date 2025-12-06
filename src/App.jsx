@@ -2,6 +2,7 @@ import React from 'react';
 import { Routes, Route, Navigate } from 'react-router-dom';
 import Login from './pages/Login';
 import Dashboard from './pages/Dashboard';
+import StudentDashboard from './pages/StudentDashboard';
 import Rooms from './pages/Rooms';
 import Students from './pages/Students';
 import Chat from './pages/Chat';
@@ -12,6 +13,11 @@ const ProtectedRoute = ({ children }) => {
   const { user } = useAuth();
   if (!user) return <Navigate to="/login" replace />;
   return children;
+};
+
+const DashboardWrapper = () => {
+  const { user } = useAuth();
+  return user?.role === 'student' ? <StudentDashboard /> : <Dashboard />;
 };
 
 function App() {
@@ -26,7 +32,7 @@ function App() {
           </ProtectedRoute>
         }>
           <Route index element={<Navigate to="/dashboard" replace />} />
-          <Route path="dashboard" element={<Dashboard />} />
+          <Route path="dashboard" element={<DashboardWrapper />} />
           <Route path="rooms" element={<Rooms />} />
           <Route path="students" element={<Students />} />
           <Route path="chat" element={<Chat />} />

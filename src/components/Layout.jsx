@@ -13,12 +13,19 @@ const Layout = () => {
         navigate('/login');
     };
 
-    const navItems = [
+    const adminNavItems = [
         { icon: LayoutDashboard, label: 'Dashboard', path: '/dashboard' },
         { icon: BedDouble, label: 'Rooms', path: '/rooms' },
         { icon: GraduationCap, label: 'Students', path: '/students' },
         { icon: MessageSquare, label: 'Chat', path: '/chat' },
     ];
+
+    const studentNavItems = [
+        { icon: LayoutDashboard, label: 'My Overview', path: '/dashboard' },
+        { icon: MessageSquare, label: 'Chat', path: '/chat' },
+    ];
+
+    const navItems = user?.role === 'admin' ? adminNavItems : studentNavItems;
 
     return (
         <div className="flex h-screen bg-gray-50 overflow-hidden">
